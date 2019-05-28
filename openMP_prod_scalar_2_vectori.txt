@@ -1,0 +1,69 @@
+#include <iostream>
+#include <omp.h>
+/* --------------------------------------------------------------------
+Implementa?i un program ce calculeaza produsul scalar a 2 vectori
+cu N elemente iar apoi paraleliza?i programul utilizand OpenMP
+Urmati, pe rand, pasii de mai jos.
+--------------------------------------------------------------------*/
+int main()
+{
+// Numarul N de elemente
+int N = 1000;
+// Primul vector
+float *a;
+// Al 2-lea vector
+float *b;
+// rezultatul
+float c;
+/* --------------------------------------------------------------------
+1. Alocati memorie pe host pentru cei doi vectori:
+0.333 puncte
+--------------------------------------------------------------------*/
+/* ------------------------ REZOLVARE PCT 1 -----------------------------*/
+/* ------------------------ CODUL TAU DE AICI ---------------------------*/
+ a = new float[N];
+ b = new float[N];
+/* ------------------------ CODUL TAU PANA AICI ---------------------------*/
+
+/* --------------------------------------------------------------------
+2. Initializa?i vectorii a si b dupa cum urmeaza:
+* primul vector are elementele de la pozitie para 0 iar cele de la pozitie impara 1
+* al 2-lea vector are elementele de la pozitie para 1 iar cele de la pozitie impara 0
+0.333 puncte
+--------------------------------------------------------------------*/
+/* ------------------------ REZOLVARE PCT 2 -----------------------------*/
+/* ------------------------ CODUL TAU DE AICI ---------------------------*/
+for(int i=0;i<N;i++)
+{
+    a[i]=i%2;
+    if(i%2==0)
+        b[i]=1;
+    else
+        b[i]=0;
+}
+/* ------------------------ CODUL TAU PANA AICI ---------------------------*/
+
+/* --------------------------------------------------------------------
+3. Implementa?i operatia de produs scalar si scrieti rezultatul in variabila c
+0.333 puncte
+--------------------------------------------------------------------*/
+/* ------------------------ REZOLVARE PCT 3 -----------------------------*/
+/* ------------------------ CODUL TAU DE AICI ---------------------------*/
+c=0;
+for(int i=0;i<N;i++)
+    c+=a[i]*b[i];
+
+/* ------------------------ CODUL TAU PANA AICI ---------------------------*/
+/* --------------------------------------------------------------------
+4. Implementa?i varianta paralela a calculului de la cerinta precedenta
+1 punct
+--------------------------------------------------------------------* /
+/* ------------------------ REZOLVARE PCT 4 -----------------------------*/
+/* ------------------------ CODUL TAU DE AICI ---------------------------*/
+#pragma omp parallel for
+    for(int i=0;i<N;i++)
+        c+=a[i]*b[i];
+/* ------------------------ CODUL TAU PANA AICI ---------------------------*/
+printf("%f ",c);
+
+}
